@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap');
+
+:root { --neon-cyan: #00f2ff; --neon-purple: #bc13fe; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Space Grotesk', sans-serif; background: #050505; color: white; overflow-x: hidden; }
+.heading-font { font-family: 'Syncopate', sans-serif; }
+
+/* FUTURISTIC BACKGROUND ELEVATION */
+:root {
+    --bg-dark: #020205; /* Pure Black-ish */
+}
+
+#home {
+    background-color: var(--bg-dark);
+}
+
+.glitch {
+    /* Subtle glow for text in the dark */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to bottom, #ffffff 60%, #444);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glitch { text-shadow: 2px 2px var(--neon-purple), -2px -2px var(--neon-cyan); }
+.modal-active { display: flex !important; animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+/* Tournament Card Extra Glow & Animation */
+.tournament-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tournament-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 20px 40px rgba(0, 242, 255, 0.15);
+}
+
+/* For the purple card specifically on hover */
+.tournament-card:nth-child(2):hover {
+    border-color: var(--neon-purple);
+    box-shadow: 0 20px 40px rgba(188, 19, 254, 0.15);
+}
+
+/* Image zoom effect enhancement */
+.tournament-card img {
+    filter: grayscale(40%);
+    transition: transform 0.8s ease, filter 0.5s ease;
+}
+
+.tournament-card:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.15);
+}
+/* Membership Card Base Animation */
+.membership-card {
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.membership-card:hover {
+    transform: translateY(-20px);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Specific Glows for Tiers */
+.pro-card:hover {
+    border-color: #06b6d4;
+    box-shadow: 0 25px 50px -12px rgba(6, 182, 212, 0.25);
+}
+
+.ultimate-card:hover {
+    border-color: #9333ea;
+    box-shadow: 0 25px 50px -12px rgba(147, 51, 234, 0.25);
+}
+
+/* Bullet point hover effect */
+.membership-card ul li {
+    transition: all 0.3s ease;
+}
+
+.membership-card:hover ul li {
+    transform: translateX(5px);
+    color: white;
+}
+.arena-btn {
+    background: transparent;
+    color: #00f2ff;
+    border: 2px solid #00f2ff;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2), inset 0 0 10px rgba(0, 242, 255, 0.1);
+    cursor: pointer;
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
+}
+
+.arena-btn:hover {
+    background: #00f2ff;
+    color: #000;
+    box-shadow: 0 0 40px #00f2ff, 0 0 80px rgba(0, 242, 255, 0.4);
+    transform: translateY(-5px) scale(1.05);
+}
+
+/* Pulsing effect to make it visible in the dark */
+.arena-btn {
+    animation: neonPulse 2s infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    }
+    to {
+        box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+    }
+}
+/* Specific split styling */
+#contactModal .glass-card {
+    background: #050505; /* Solid dark base for split */
+}
+
+#form-booking input:focus, #form-booking textarea:focus {
+    background: rgba(0, 242, 255, 0.03);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.05);
+}
+/* Leaderboard Specific Styles */
+#leaderboard table tr {
+    transition: all 0.3s ease;
+}
+
+#leaderboard table tbody tr:hover {
+    transform: scale(1.01);
+    box-shadow: inset 5px 0 0 var(--accent-cyan);
+}
+
+/* Rank Glow */
+.text-yellow-500 {
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
