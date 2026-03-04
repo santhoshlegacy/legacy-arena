@@ -294,3 +294,13 @@ window.onload = resizeCanvas;
 
 resizeCanvas();
 animate();
+// Manual event listener for the menu button
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuBtn');
+    if (menuBtn) {
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Default behavior stop panna
+            toggleMobileMenu();
+        });
+    }
+});

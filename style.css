@@ -179,3 +179,31 @@ main, section, nav, footer {
     position: relative;
     z-index: 2; /* Particles-ah vida mela irukanum */
 }
+/* style.css-la #mobileMenu irukura edathula idhai update pannu */
+#mobileMenu {
+    position: fixed; /* Screen-ah full-ah cover panna */
+    inset: 0;
+    z-index: 99; /* Particles 1-la iruku, so idhu mela varum */
+    background: rgba(0, 0, 0, 0.98); /* Solid black-ish background */
+    display: none; /* Initial-ah hidden */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+}
+
+/* Menu open aagum pothu indha class add aagum */
+#mobileMenu.flex {
+    display: flex !important;
+}
+/* Nav-la irukura mobile menu button container-ku idhai add pannu */
+.lg\:hidden {
+    position: relative;
+    z-index: 100; /* Ellaathaiyum vida mela button irukanum */
+}
+
+/* Button-oda click area-va perusaaka */
+#menuBtn {
+    cursor: pointer;
+    pointer-events: auto !important; /* Touch events-ah force panna */
+}
