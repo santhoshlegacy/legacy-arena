@@ -42,18 +42,19 @@ function closeContactModal() {
 
 // --- NEW: MOBILE MENU TOGGLE ---
 function toggleMobileMenu() {
+    console.log("Menu clicked!"); // Check panna console-la idhu varudha-nu paarunga
     const menu = document.getElementById('mobileMenu');
-    if (menu.classList.contains('hidden')) {
-        menu.classList.remove('hidden');
-        menu.classList.add('flex');
-        document.body.style.overflow = 'hidden'; 
-    } else {
-        menu.classList.add('hidden');
-        menu.classList.remove('flex');
-        document.body.style.overflow = 'auto';
+    if (menu) {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        // Scroll lock logic
+        if (menu.classList.contains('flex')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
     }
 }
-
 // --- LOGIN LOGIC ---
 document.getElementById('form-login').onsubmit = async (e) => {
     e.preventDefault();

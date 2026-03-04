@@ -160,20 +160,32 @@ body { font-family: 'Space Grotesk', sans-serif; background: #050505; color: whi
 main, section, nav, footer {
     position: relative;
     z-index: 2; /* Particles-ah vida mela irukanum */
-}#particleCanvas {
+}/* style.css-la idhai update pannunga */
+#particleCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Zero-vukku mela kondu varuvom */
-    pointer-events: none;
-}
-nav {
-    background: transparent !important; /* Solid color-ah thookiduvom */
-    backdrop-filter: blur(10px); /* Ippo pinnadi irukura particles light-ah blur aagi theryum, pakka vibe! */
+    z-index: 1; 
+    pointer-events: none !important; /* Idhu thaan touch-ah button-ku anupum */
+    background: transparent;
 }
 
+/* Button mela vara z-index fix */
+.lg\:hidden {
+    position: relative;
+    z-index: 9999 !important; /* Button-ah ellathukum mela kondu varuvom */
+}
+
+#mobileMenu.flex {
+    display: flex !important;
+}
+/* Button-oda click area-va perusaaka */
+#menuBtn {
+    cursor: pointer;
+    pointer-events: auto !important; /* Touch events-ah force panna */
+}
 /* Meethi ella content-um (Sections, Nav) particles-ku mela vara idhai pannunga */
 main, section, nav, footer {
     position: relative;
@@ -192,18 +204,3 @@ main, section, nav, footer {
     backdrop-filter: blur(20px);
 }
 
-/* Menu open aagum pothu indha class add aagum */
-#mobileMenu.flex {
-    display: flex !important;
-}
-/* Nav-la irukura mobile menu button container-ku idhai add pannu */
-.lg\:hidden {
-    position: relative;
-    z-index: 100; /* Ellaathaiyum vida mela button irukanum */
-}
-
-/* Button-oda click area-va perusaaka */
-#menuBtn {
-    cursor: pointer;
-    pointer-events: auto !important; /* Touch events-ah force panna */
-}
