@@ -184,7 +184,7 @@ main, section, nav, footer {
 /* Button-oda click area-va perusaaka */
 #menuBtn {
     cursor: pointer;
-    pointer-events: auto !important; /* Touch events-ah force panna */
+    pointer-events: none !important; /* Touch events-ah force panna */
 }
 /* Meethi ella content-um (Sections, Nav) particles-ku mela vara idhai pannunga */
 main, section, nav, footer {
