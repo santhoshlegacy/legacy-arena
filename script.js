@@ -1,5 +1,5 @@
 // ⚠️ Update this with your actual URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWkhMAjdKz6UuZVXqpgfgDBbYgYBtuB6_wlnnUr50PEHqSNEJl5fEk6-7pIADOGEfX/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRBvOtEB06Ds6zFbU20inx0PmQY_fWqKE32ciydVdBL9mIKwqcATSPsO16YxWHFt5c/exec";
 
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init({ duration: 1000, once: true });
@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('gamerSession') === 'active') {
         document.getElementById('authGate').style.display = 'none';
     }
+    // Initial call for full page canvas height
+    resizeCanvas();
 });
 
 // --- AUTH TAB TOGGLE FIX ---
@@ -36,6 +38,20 @@ function openContactModal() {
 }
 function closeContactModal() {
     document.getElementById('contactModal').classList.remove('modal-active');
+}
+
+// --- NEW: MOBILE MENU TOGGLE ---
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        document.body.style.overflow = 'hidden'; 
+    } else {
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // --- LOGIN LOGIC ---
@@ -128,11 +144,26 @@ function handleLogout() {
     }
 }
 
-// Close modal on click outside
+// --- NEW: SCROLL TO TOP LOGIC ---
+window.addEventListener('scroll', () => {
+    const btn = document.getElementById("scrollTop");
+    if (btn) {
+        if (window.scrollY > 500) {
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
+        } else {
+            btn.style.opacity = "0";
+            btn.style.pointerEvents = "none";
+        }
+    }
+});
+
+// Window click controls for modals
 window.onclick = (e) => {
     if (e.target.id === 'contactModal') closeContactModal();
+    if (e.target.id === 'memberModal') closeMemberModal();
 };
-// Function to open membership modal with plan name
+
 function openMemberModal(plan) {
     document.getElementById('m-plan').value = plan;
     document.getElementById('planNameDisplay').innerText = plan + " MEMBERSHIP TIER";
@@ -153,7 +184,7 @@ if (memberForm) {
         btn.disabled = true;
 
         const formData = new URLSearchParams();
-        formData.append('action', 'membership'); // AppScript-la intha action irukanum
+        formData.append('action', 'membership');
         formData.append('plan', document.getElementById('m-plan').value);
         formData.append('name', document.getElementById('m-name').value);
         formData.append('email', document.getElementById('m-email').value);
@@ -172,16 +203,37 @@ if (memberForm) {
     };
 }
 
-// Window click-la ithaiyum sethu close panna update:
-window.onclick = (e) => {
-    if (e.target.id === 'contactModal') closeContactModal();
-    if (e.target.id === 'memberModal') closeMemberModal();
-};
+// --- UPDATED PARTICLE ENGINE ---
 const canvas = document.getElementById('particleCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// Indha function thaan particles-ah footer varaikkum extend panna vekkum
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    // Window height mattum illama, page-oda motha height-ahyum calculate pannuvom
+    canvas.height = Math.max(
+        document.body.scrollHeight, 
+        document.body.offsetHeight, 
+        document.documentElement.clientHeight, 
+        document.documentElement.scrollHeight, 
+        document.documentElement.offsetHeight
+    );
+    init(); // Height maarum pothu particles-ah marupadiyum spread panna
+}
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight; // Full scroll height venaam, innerHeight-ae podhum
+    init(); 
+}
+
+// Window clear panna:
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height); 
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+    }
+}
 
 let particlesArray;
 
@@ -211,13 +263,14 @@ class Particle {
 
 function init() {
     particlesArray = [];
-    let numberOfParticles = (canvas.height * canvas.width) / 9000;
+    // Particles density-ah adjust panna height x width calculation
+    let numberOfParticles = (canvas.height * canvas.width) / 12000; 
     for (let i = 0; i < numberOfParticles; i++) {
         let size = (Math.random() * 2) + 1;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 2) - 1;
-        let directionY = (Math.random() * 2) - 1;
+        let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * (canvas.height - size * 2)); 
+        let directionX = (Math.random() * 1.5) - 0.75; // Speed konjam koraichurukaen subtle-ah irukka
+        let directionY = (Math.random() * 1.5) - 0.75;
         let color = '#ffffff';
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
@@ -226,17 +279,18 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    // Dynamic canvas size-ku yetha maari clear pannanum
+    ctx.clearRect(0, 0, canvas.width, canvas.height); 
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
     }
 }
 
-window.addEventListener('resize', () => {
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-    init();
-});
+// Window resize aagum pothu marupadiyum height calculate panna
+window.addEventListener('resize', resizeCanvas);
 
-init();
+// Page mothama load aanathum canvas-ah stretch panna
+window.onload = resizeCanvas;
+
+resizeCanvas();
 animate();

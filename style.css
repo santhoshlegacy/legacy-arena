@@ -146,3 +146,36 @@ body { font-family: 'Space Grotesk', sans-serif; background: #050505; color: whi
 .text-yellow-500 {
     text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
 }
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Zero-vukku mela kondu varuvom */
+    pointer-events: none;
+}
+
+/* Meethi ella content-um (Sections, Nav) particles-ku mela vara idhai pannunga */
+main, section, nav, footer {
+    position: relative;
+    z-index: 2; /* Particles-ah vida mela irukanum */
+}#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Zero-vukku mela kondu varuvom */
+    pointer-events: none;
+}
+nav {
+    background: transparent !important; /* Solid color-ah thookiduvom */
+    backdrop-filter: blur(10px); /* Ippo pinnadi irukura particles light-ah blur aagi theryum, pakka vibe! */
+}
+
+/* Meethi ella content-um (Sections, Nav) particles-ku mela vara idhai pannunga */
+main, section, nav, footer {
+    position: relative;
+    z-index: 2; /* Particles-ah vida mela irukanum */
+}
