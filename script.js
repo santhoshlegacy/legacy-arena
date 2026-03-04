@@ -305,3 +305,92 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+// script.js kadaisila idhai add pannu macha
+document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', (e) => {
+            console.log("Menu button touched!"); // Console-la check panna
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+});
+
+// Close panna indha function
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (mobileMenu) {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+}
+// Function to close any modal
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex', 'modal-active');
+        document.body.style.overflow = 'auto'; // Re-enable scroll
+    }
+}
+
+// Background touch panna modal close aaga (Optional but helpful)
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target == modal) {
+            closeModal(modal.id);
+        }
+    });
+}
+// Smooth Scroll Function
+function scrollToSection(sectionId) {
+    // Menu open-ah irundha close panniduvom
+    const menu = document.getElementById('mobileMenu');
+    if (menu && !menu.classList.contains('hidden')) {
+        toggleMobileMenu();
+    }
+
+    const element = document.getElementById(sectionId);
+    if (element) {
+        const headerOffset = 80; // Nav bar height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    } else {
+        console.log("Section not found: " + sectionId);
+    }
+}
+
+// Mobile Menu Toggle Fix
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        // Body scroll block
+        document.body.style.overflow = menu.classList.contains('flex') ? 'hidden' : 'auto';
+    }
+}
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        // Menu open-ah irundha close pannu
+        const menu = document.getElementById('mobileMenu');
+        if (!menu.classList.contains('hidden')) toggleMobileMenu();
+
+        window.scrollTo({
+            top: element.offsetTop - 70,
+            behavior: 'smooth'
+        });
+    }
+}
